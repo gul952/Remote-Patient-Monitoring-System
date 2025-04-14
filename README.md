@@ -1,6 +1,6 @@
-# Healthcare Management System
+# Remote Patient Monitoring System
 
-The Healthcare Management System is a comprehensive Java-based project that simulates a healthcare environment. The system allows patients, doctors, and administrators to interact with various functionalities such as patient vital sign tracking, appointment scheduling, and doctor-patient feedback. In addition, the project has been extended with advanced features—including an Emergency Alert System, Chat & Video Consultation, and Notifications & Reminders—to further enhance user interaction.
+The Remote Patient Monitoring System is a Java-based project that was made as a university assignment. The system allows patients, doctors, and administrators to interact with various functionalities such as patient vital sign tracking, appointment scheduling, and doctor-patient feedback.The project has been extended with advanced features—including an Emergency Alert System, Chat & Video Consultation, and Notifications & Reminders.
 
 ## Table of Contents
 
@@ -19,7 +19,7 @@ The Healthcare Management System is a comprehensive Java-based project that simu
 
 ## Project Overview
 
-This project started as a basic Healthcare Management System with core functionalities for managing patient and doctor data, managing appointments, entering vital signs, and maintaining medical histories. The system also included user roles (Patient, Doctor, and Administrator) with tailored workflows and operations.
+This project started as a Remote Patient Monitoring System with core functionalities for managing patient and doctor data, managing appointments, entering vital signs, and maintaining medical histories. The system also included user roles (Patient, Doctor, and Administrator).
 
 Recently, the system has been enhanced by adding three new modules:
 
@@ -130,7 +130,6 @@ All these features have been integrated into one single Java file without changi
    java HealthcareManagement
    ```
 
-Follow the interactive menus displayed in the terminal to simulate various workflows.
 
 ## Usage
 
@@ -138,7 +137,7 @@ Upon running the project, you will see a main menu offering several user roles a
 
 ### For Patients:
 
-- Enter your Patient ID to access functionalities such as entering vital signs, scheduling appointments, viewing feedback and prescriptions, and checking your medical history (e.g., P001).
+- Enter your Patient ID to access functionalities such as entering vital signs, scheduling appointments, viewing feedback and prescriptions, and checking your medical history (e.g., P001). New IDS can be added through the admin menu if you wish
 - You can also view your notification inbox (alerts/reminders) and chat message history.
 
 ### For Doctors:
@@ -165,36 +164,5 @@ All functionalities are implemented in a single Java file: **HealthcareManagemen
 - The original Healthcare Management System code (user management, appointment scheduling, vital sign tracking, etc.).
 - New modules for Emergency Alerts, Chat & Video Consultation, and Notifications & Reminders.
 - Enhanced user dashboards for both patients and doctors (to view notifications and chat messages).
-- Interactive menus that guide the user through both the original and new features.
 
-## Contributing
-
-Contributions are welcome! To contribute:
-
-1. Fork the Repository.
-2. Create a Feature Branch:
-
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-3. Commit Your Changes:
-
-   ```bash
-   git commit -m "Description of changes"
-   ```
-
-4. Push to Your Branch:
-
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-5. Submit a Pull Request.
-
-Please adhere to the original code style and ensure any modifications or enhancements do not break existing functionality.
-
-## License
-
-This project is licensed under the MIT License.
 
