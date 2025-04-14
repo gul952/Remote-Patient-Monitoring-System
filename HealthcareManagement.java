@@ -10,6 +10,7 @@ import java.util.*;
 */
 public class HealthcareManagement {
 
+//below are the new changes
     // Global databases for patients and doctors, used by the new notification/chat enhancements.
     public static List<Patient> globalPatientDb = new ArrayList<>();
     public static List<Doctor> globalDoctorDb = new ArrayList<>();
@@ -32,7 +33,7 @@ public class HealthcareManagement {
         // If not found, notification is not stored.
     }
 
-    // Helper method to add a chat message for a given recipient.
+    // Helper method to add a chat message for a given reciver.
     public static void addChatMessage(String recipient, String message) {
         for (Patient p : globalPatientDb) {
             if (p.getName().equalsIgnoreCase(recipient) || p.getUserId().equalsIgnoreCase(recipient)) {
@@ -65,6 +66,7 @@ public class HealthcareManagement {
         }
         return null;
     }
+    //below is same as before
 
     // -------------------------------
     // 1. User Management Classes
@@ -1261,8 +1263,9 @@ public class HealthcareManagement {
             System.out.println("2. Press Panic Button");
             System.out.println("3. Chat");
             System.out.println("4. Start Video Call");
-            System.out.println("5. Send Notifications & Reminders");
-            System.out.println("6. Back to Main Menu");
+            System.out.println("5. Send Appointment Reminders");
+            System.out.println("6. Send Medicine Notifications ");
+            System.out.println("7. Back to Main Menu");
             System.out.print("Enter choice: ");
             int extraChoice = 0;
             try {
@@ -1287,12 +1290,14 @@ public class HealthcareManagement {
                     break;
                 case 2:
                     // PanicButton: trigger an immediate alert.
-                    System.out.print("Enter patient name for Panic Button action: ");
-                    String panicName = scanner.nextLine();
-                    panicButton.pressButton(panicName);
+                    System.out.print("Enter Doctor name for this patient to alert the doctor : ");
+                    String doctorName = scanner.nextLine();
+                    System.out.print("Enter patient name: ");
+                    String patientName = scanner.nextLine();
+                    panicButton.pressButton(patientName, doctorName);
                     break;
                 case 3:
-                    // Chat: Simulate a chat session by prompting sender and receiver information.
+                    // Chat: Simulate a chat session 
                     ChatClient chatClient = new ChatClient(chatServer);
                     System.out.print("Enter your name (sender): ");
                     String sender = scanner.nextLine();
@@ -1314,15 +1319,22 @@ public class HealthcareManagement {
                     videoCall.startCall(vcPatient, vcDoctor);
                     break;
                 case 5:
-                    // Reminders & Notifications: send medication and appointment reminders.
-                    System.out.print("Enter recipient name for reminders: ");
+                    // Reminders: send appointment reminders.
+                    System.out.print("Enter recipient name for appointment reminders: ");
                     String recipient = scanner.nextLine();
                     System.out.print("Enter appointment time (e.g., 3 PM): ");
                     String time = scanner.nextLine();
-                    reminderService.sendMedicationReminder(recipient);
                     reminderService.sendAppointmentReminder(recipient, time);
                     break;
-                case 6:
+                case 6: 
+                    // Notifications: send medication reminders.
+                    System.out.print("Enter recipient name for notification reminders: ");
+                    String recipient1 = scanner.nextLine();
+                    System.out.print("Reminder is sent ");
+                    reminderService.sendMedicationReminder(recipient1);
+                
+                    break;
+                case 7:
                     extraLoop = false;
                     break;
                 default:
@@ -1394,9 +1406,9 @@ class EmergencyAlert {
             notificationService.sendEmailAlert(patientName, "Critical vitals detected.");
             notificationService.sendSMSAlert(patientName, "Immediate attention needed.");
         } else if (heartRate > HEART_RATE_WARNING) {
-            System.out.println("Warning: Elevated heart rate detected for " + patientName);
+            System.out.println("Warning: Increased heart rate detected for " + patientName);
         } else {
-            System.out.println("Vitals are normal for " + patientName);
+            System.out.println("Vitals are normal for " + patientName + ":)");
         }
     }
 }
@@ -1406,10 +1418,12 @@ class PanicButton {
     NotificationService notificationService = new NotificationService();
 
     // Pressing the button sends immediate email and SMS alerts.
-    public void pressButton(String patientName) {
-        System.out.println("Panic button pressed by " + patientName);
-        notificationService.sendEmailAlert(patientName, "Panic button triggered!");
-        notificationService.sendSMSAlert(patientName, "Immediate response needed!");
+    public void pressButton(String patientName, String doctorName) {
+        System.out.println("Panic button pressed for " + patientName);
+        notificationService.sendEmailAlert(patientName, "Panic button triggered");
+        notificationService.sendSMSAlert(patientName, "You triggered the panic button, please wait for the doctor.");
+        notificationService.sendEmailAlert(doctorName, "Panic button triggered for" + patientName);
+        notificationService.sendSMSAlert(doctorName, "Immediate response needed" + "for " + patientName );
     }
 }
 
@@ -1463,7 +1477,7 @@ class ChatClient {
 class VideoCall {
     public void startCall(String patientName, String doctorName) {
         System.out.println("Starting video call between " + patientName + " and Dr. " + doctorName);
-        System.out.println("Join link: https://zoom.example.com/" + patientName + "-to-" + doctorName);
+        System.out.println("Join link: https://zoom.fakemeeting.com/" + patientName + "-to-" + doctorName);
     }
 }
 
@@ -1472,12 +1486,12 @@ class ReminderService {
     Notifiable emailNotifier = new EmailNotification();
     Notifiable smsNotifier = new SMSNotification();
 
-    public void sendMedicationReminder(String recipient) {
-        String message = "Time to take your medication!";
-        emailNotifier.sendNotification(recipient, message);
-        smsNotifier.sendNotification(recipient, message);
+    public void sendMedicationReminder(String recipient1) {
+        String message = "Take your meds";
+        emailNotifier.sendNotification(recipient1, message);
+        smsNotifier.sendNotification(recipient1, message);
         // Store the reminder.
-        HealthcareManagement.addNotification(recipient, "Medication Reminder: " + message);
+        HealthcareManagement.addNotification(recipient1, "Medication Reminder: " + message);
     }
 
     public void sendAppointmentReminder(String recipient, String time) {
